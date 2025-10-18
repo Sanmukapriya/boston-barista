@@ -1,4 +1,4 @@
-.loaderContainer {
+/* .loaderContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +6,25 @@
     height: 100vh;
     background: linear-gradient(90deg, rgb(127, 69, 37) 0%, rgb(168, 125, 79) 100%);
     font-family: 'Arial', sans-serif;
+} */
+
+.loaderContainer {
+    position: fixed;
+    /* ensures full screen coverage */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, rgb(127, 69, 37) 0%, rgb(168, 125, 79) 100%);
+    font-family: 'Arial', sans-serif;
+    z-index: 9999;
+    /* makes sure loader is above everything */
 }
+
 
 .coffeeLoader {
     position: relative;

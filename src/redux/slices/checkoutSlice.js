@@ -2,39 +2,34 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const checkoutSlice = createSlice({
   name: "checkout",
-
   initialState: {
-    productDetails: {},
-    checkoutStatus: false,
-    checkoutDetails: {},
+    productDetails: {},      
+    checkoutDetails: {},    
   },
-
   reducers: {
-    setProductDetails: (state, actions) => {
-      state.productDetails = actions.payload;
+    setProductDetails: (state, action) => {
+      state.productDetails = action.payload;
     },
 
-    setModifiedPrice: (state, actions) => {
-      const quantity = Number(actions.payload);
-      const singlePrice = state.productDetails.singlePrice;
+    setQuantity: (state, action) => {
+      const quantity = Number(action.payload);
+      if (!isNaN(quantity) && quantity >= 1) {
+        state.productDetails.quantity = quantity;
+        state.productDetails.price = quantity * state.productDetails.singlePrice;
+      }
+    },
 
+    setModifiedPrice: (state, action) => {
+      const quantity = Number(action.payload);
+      const singlePrice = state.productDetails.singlePrice;
       if (!isNaN(singlePrice) && quantity >= 1) {
         state.productDetails.price = quantity * singlePrice;
-      } else {
-        console.warn("Invalid price or quantity");
+        state.productDetails.quantity = quantity;
       }
     },
 
-    setCheckoutStatus: (state, actions) => {
-      if (actions.payload) {
-        state.checkoutStatus = true;
-      } else {
-        state.checkoutStatus = false;
-      }
-    },
-
-    setCheckoutDetails: (state, actions) => {
-      state.checkoutDetails = actions.payload;
+    setCheckoutDetails: (state, action) => {
+      state.checkoutDetails = action.payload;
       console.log("Checkout details set successfully ", state.checkoutDetails);
     },
   },
@@ -45,6 +40,7 @@ export const {
   setModifiedPrice,
   setCheckoutStatus,
   setCheckoutDetails,
+  setQuantity,
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;

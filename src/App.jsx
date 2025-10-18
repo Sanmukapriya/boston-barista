@@ -1,27 +1,34 @@
+// App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Homepage from "./containers/Homepage/Homepage";
-import Menu from "./containers/Menu/Menu";
-import AboutPage from "./containers/About page/AboutPage";
-import Gallery from "./containers/Gallery/Gallery";
-import ContactPage from "./containers/Contact Page/ContactPage";
-import Checkout from "./containers/Checkout/Checkout";
 import ScrollToTop from "./components/Scroll To Top/ScrollToTop";
 import "./App.css";
+import Loader from "./components/Loader/Loader.jsx";
+import { Suspense, lazy } from "react";
+
+// Lazy load pages
+const Homepage = lazy(() => import("./containers/Homepage/Homepage"));
+const Menu = lazy(() => import("./containers/Menu/Menu"));
+const AboutPage = lazy(() => import("./containers/About page/AboutPage"));
+const Gallery = lazy(() => import("./containers/Gallery/Gallery"));
+const ContactPage = lazy(() => import("./containers/Contact Page/ContactPage"));
+const Checkout = lazy(() => import("./containers/Checkout/Checkout"));
 
 const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/home" element={<Homepage />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" replace />} />
+          <Route path="/home" element={<Homepage />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="*" element={<Navigate to="/home" replace />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 };

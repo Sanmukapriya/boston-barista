@@ -1,3 +1,4 @@
+// main.jsx
 import { StrictMode, useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
@@ -10,8 +11,16 @@ function Main() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000);
-    return () => clearTimeout(timer);
+    const minimumTime = 2000;
+    const start = Date.now();
+
+    const handleLoad = () => {
+      const elapsed = Date.now() - start;
+      const remainingTime = minimumTime - elapsed;
+      setTimeout(() => setLoading(false), remainingTime > 0 ? remainingTime : 0);
+    };
+
+    handleLoad();
   }, []);
 
   return (
