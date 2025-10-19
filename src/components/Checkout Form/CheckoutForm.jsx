@@ -90,7 +90,7 @@ const CheckoutForm = () => {
 
       if (session.url) {
         // Redirect to Stripe Checkout
-        window.location.href = session.url;
+        window.location.assign(session.url);
       } else {
         console.error("Stripe session creation failed:", session);
         alert("Failed to create Stripe payment session.");
