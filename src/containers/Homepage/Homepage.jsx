@@ -13,6 +13,7 @@ import Footer from "../../components/Footer/Footer";
 const Homepage = () => {
   useEffect(() => {
     const hiddenSections = document.querySelectorAll(`.${styles.hidden}`);
+    
     if (!hiddenSections) return;
 
     const observer = new IntersectionObserver(

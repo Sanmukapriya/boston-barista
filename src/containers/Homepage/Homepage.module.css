@@ -82,7 +82,8 @@
 /*mobile landscape*/
 @media(min-width: 667px) and (max-width: 767px) {
   .background::before {
-    background-size: auto 6%;
+    /* background-size: auto 6%; */
+    background-size: contain;
   }
 
   .partyBg {

@@ -17,7 +17,10 @@ function Main() {
     const handleLoad = () => {
       const elapsed = Date.now() - start;
       const remainingTime = minimumTime - elapsed;
-      setTimeout(() => setLoading(false), remainingTime > 0 ? remainingTime : 0);
+      setTimeout(
+        () => setLoading(false),
+        remainingTime > 0 ? remainingTime : 0
+      );
     };
 
     handleLoad();
